@@ -1,8 +1,15 @@
 import os
-from flask import Flask, request, redirect, make_response
+import redis
+from flask import Flask, request, redirect, make_response, session
+from flask_session import Session
 
 app = Flask(__name__)
 secret = os.urandom(24).hex()
+SESSION_TYPE = 'redis'
+SESSION_COOKIE_PATH="atat.codes"
+SESSION_COOKIE_SECURE=True
+SESSION_REDIS=redis.Redis(host="redis", port=6379)
+Session(app)
 
 
 # This is just here so that there is a root route.

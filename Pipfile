@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 Flask = "==1.0.2"
 requests = "*"
+flask-session = "*"
+redis = "*"
 
 [dev-packages]
 pytest = "*"
