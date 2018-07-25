@@ -4,11 +4,14 @@ from flask import Flask, request, redirect, make_response, session
 from flask_session import Session
 
 app = Flask(__name__)
-secret = os.urandom(24).hex()
+app.secret_key = os.urandom(24)
+
 SESSION_TYPE = 'redis'
-SESSION_COOKIE_PATH="atat.codes"
+SESSION_COOKIE_DOMAIN="atat.codes"
 SESSION_COOKIE_SECURE=True
+SESSION_USE_SIGNER=True
 SESSION_REDIS=redis.Redis(host="redis", port=6379)
+app.config.from_object(__name__)
 Session(app)
 
 
@@ -29,8 +32,7 @@ def login():
 # doesn't exist.
 @app.route("/protected")
 def protected():
-    cookie = request.cookies.get("mono-auth")
-    if cookie and cookie == secret:
+    if session.get("user"):
         return "you got here i guess"
 
     else:
@@ -56,10 +58,7 @@ def error():
 def cac_login():
     if request.environ.get("HTTP_X_SSL_CLIENT_VERIFY") == "SUCCESS":
         resp = make_response(redirect("/protected"))
-        # This is like a session.
-        resp.set_cookie(
-            "mono-auth", secret, domain=".atat.codes", httponly=True, secure=True
-        )
+        session['user'] = True
         return resp
 
     else:
