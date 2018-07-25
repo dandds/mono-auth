@@ -18,7 +18,8 @@ def login():
 
 
 # This is the only protected route in the demo. It checks for the existence of
-# the session cookie, and redirects to the login page if it doesn't exist.
+# the _domain level_ session cookie, and redirects to the login page if it
+# doesn't exist.
 @app.route("/protected")
 def protected():
     cookie = request.cookies.get("mono-auth")
@@ -37,8 +38,8 @@ def error():
 
 # This is the endpoint that would be responsible for the heavy lifting. It is
 # available at https://dev.cac.atat.codes/cac-login.
-# If client authentication is successful, it redirects you to the /protected
-# route. If not, it redirects to /error.
+# If client authentication is successful, it sets a _domain level_ cookie and
+# redirects you to the /protected route. If not, it redirects to /error.
 # If this were the real app, it would:
 #     - perform the CRL check
 #     - check if the user exists in the database and create it if not
