@@ -9,6 +9,6 @@ RUN pipenv install --system --deploy --ignore-pipfile
 
 RUN mkdir /var/log/uwsgi
 
-RUN ln -s /app/ssl/ssl.conf /etc/nginx/conf.d/
+RUN ln -s /app/atat.nginx.conf /etc/nginx/conf.d/
 
 EXPOSE 80 443
