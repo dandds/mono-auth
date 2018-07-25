@@ -1,0 +1,9 @@
+# Python virtual env
+.venv/
+
+.pytest_cache/
+__pycache__
+
+# Compiled python bytecode files
+*.pyc
+.cache/

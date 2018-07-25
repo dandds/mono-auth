@@ -1,0 +1,10 @@
+version: '3'
+services:
+  mono:
+    build: ./
+    volumes:
+      - .:/app
+    ports:
+      - "443:443"
+    environment:
+      - FLASK_ENV
