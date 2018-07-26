@@ -1,0 +1,6 @@
+[uwsgi]
+module = main
+callable = app
+socket = /var/run/uwsgi/uwsgi.socket
+plugins = python3
+chmod-socket = 660
