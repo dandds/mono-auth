@@ -1,4 +1,4 @@
-FROM tiangolo/uwsgi-nginx:python3.6
+FROM python:3.6.5-alpine
 
 RUN pip install --upgrade pip
 RUN pip install pipenv
@@ -8,7 +8,5 @@ WORKDIR /app/
 RUN pipenv install --system --deploy --ignore-pipfile
 
 RUN mkdir /var/log/uwsgi
-
-RUN ln -s /app/atat.nginx.conf /etc/nginx/conf.d/
 
 EXPOSE 80 443
