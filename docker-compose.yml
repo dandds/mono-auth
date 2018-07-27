@@ -1,12 +1,26 @@
-version: '3'
+version: '3.6'
 services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./nginx/Dockerfile
+    volumes:
+      - type: volume
+        source: uwsgisocket
+        target: /var/run/uwsgi
+    ports:
+      - "80:80"
+      - "443:443"
   mono:
     build: ./
     volumes:
-      - .:/app
-    ports:
-      - "443:443"
+      - type: volume
+        source: uwsgisocket
+        target: /var/run/uwsgi
     environment:
       - FLASK_ENV
   redis:
     image: "redis:alpine"
+
+volumes:
+  uwsgisocket:
